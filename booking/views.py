@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import generic
+from .models import GymClass
 
 
 # Create your views here.
-def my_booking(request):
-    return HttpResponse("Hello, Booking!")
+class GymClassView(generic.ListView):
+    queryset = GymClass.objects.all()
+    template_name = "index.html"
