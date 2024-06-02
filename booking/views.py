@@ -18,3 +18,8 @@ def cancel(request):
     # This view handles the cancellation logic.
     # For now, it just redirects to the homepage as a placeholder.
     return redirect('index')
+
+
+def book(request):
+    # Your view logic here
+    return render(request, 'book.html')
