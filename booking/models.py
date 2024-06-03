@@ -40,12 +40,13 @@ class Membership(models.Model):
 
 
 class Booking(models.Model):
-    name = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    details = models.TextField()
+    time = models.TimeField()
+    description = models.TextField()
 
     def __str__(self):
-        return self.name
+        return f"{self.user.username} booking on {self.date} at {self.time}"
 
 
 class Review(models.Model):
