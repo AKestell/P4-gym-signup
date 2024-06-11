@@ -23,7 +23,7 @@ def cancel(request):
 
 def book(request):
     # Your view logic here
-    return render(request, 'book.html')
+    return render(request, 'booking/book.html')
 
 from .forms import BookingForm
 
@@ -58,18 +58,18 @@ def update_booking(request, pk):
 @login_required
 def delete_booking(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
-    if request.user == booking.user:  # Check if the user is the owner of the booking
+    if request.user == booking.user:  
         booking.delete()
         return redirect('bookings-list')
     else:
-        return redirect('booking-detail', pk=pk)  # Redirect if not authorized
+        return redirect('booking-detail', pk=pk)  
 
 class BookingAdmin(SummernoteModelAdmin):
-    summernote_fields = ('description',)  # Specify the fields you want to use Summernote with
+    summernote_fields = ('description',)  
 
 def bookings_list(request):
-    bookings = Booking.objects.all()  # Retrieve all bookings from the database
-    hours = range(9, 17, 2)  # Generates hours from 9 AM to 5 PM with a 2-hour interval
+    bookings = Booking.objects.all()  
+    hours = range(9, 17, 2)  
     time_slots = [f"{hour}:00 - {hour + 1}:00" for hour in hours]
     context = {
         'bookings': bookings,
@@ -83,7 +83,12 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Redirect to login page after signup
+            return redirect('login')  
     else:
         form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'booking/signup.html', {'form': form})
+
+
+def login_view(request):
+    # Your view logic here
+    return render(request, 'booking/login.html')
